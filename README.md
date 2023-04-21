@@ -1,2 +1,2 @@
 # PY-Script
-自用的一些python脚本
+放自用的一些python脚本

@@ -31,10 +31,10 @@ async def handle_webhook(message: Message):
         with connection.cursor() as cursor:
             sql = "INSERT INTO messages ( `from`, `title`, `org_content`, `receive_time`) VALUES (%s, %s, %s, %s)"
             cursor.execute(sql, (message.from_,
-                                 message.title,
-                                 message.org_content,
-                                 message.receive_time)
-                           )
+                                message.title,
+                                message.org_content,
+                                message.receive_time)
+                        )
             connection.commit()
 
 

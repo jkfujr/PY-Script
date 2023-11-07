@@ -39,16 +39,17 @@ def merge_folders(folder_paths):
             folder_list.sort(key=lambda x: x[0])  # 按照日期进行排序
             for i in range(len(folder_list) - 1):
                 time_diff = folder_list[i + 1][0] - folder_list[i][0]
-                if (
-                    time_diff.total_seconds() <= 4 * 60 * 60
-                ):  # 判断时间差是否小于4小时（4 * 60 * 60秒）
-                    merge_to_folder = folder_list[i][1]  # 使用第一个文件夹作为合并目标
+                # 判断时间差是否小于4小时（4 * 60 * 60秒）
+                if (time_diff.total_seconds() <= 4 * 60 * 60):
+                    # 使用第一个文件夹作为合并目标
+                    merge_to_folder = folder_list[i][1]
 
                     # 将其他文件夹内容合并到目标文件夹
                     for folder_to_merge in folder_list[i + 1 :]:
                         print(f"[Info] 合并: {folder_to_merge[1]} -> {merge_to_folder}")
                         merge_files(merge_to_folder, folder_to_merge[1])
-                        os.rmdir(folder_to_merge[1])  # 删除已合并的文件夹
+                        # 删除已合并的文件夹
+                        os.rmdir(folder_to_merge[1])
                     break
 
     print("[Info] 全部完成")

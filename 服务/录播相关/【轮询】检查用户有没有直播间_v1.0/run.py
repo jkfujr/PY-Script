@@ -17,13 +17,13 @@ log_format = "%(asctime)s - %(levelname)s - %(message)s"
 logging.basicConfig(level=logging.INFO, format=log_format)
 log_handler = TimedRotatingFileHandler(
     os.path.join(log_folder, "app.log"),
-    when="midnight",  # 每天午夜分割
-    interval=1,  # 分割频率（每天）
+    when="midnight",
+    interval=1,
     backupCount=5,
     encoding="utf-8",
     atTime=datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 )
-log_handler.suffix = "%Y-%m-%d.log"  # 自定义日志文件名后缀
+log_handler.suffix = "%Y-%m-%d.log"
 log_handler.setFormatter(logging.Formatter(log_format))
 logger = logging.getLogger()
 logger.addHandler(log_handler)
@@ -36,16 +36,13 @@ def read_uid_file():
 uids = read_uid_file()
 
 while True:
-    # 获取当前时间
     current_time = datetime.now()
     start_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
-    # 打印脚本开始时间到日志
     logger.info(f"========== {start_time} ==========")
     logger.info("")
 
 
-    # 检查uid.conf文件是否发生了更改
     new_uids = read_uid_file()
     if new_uids != uids:
         logger.info("uid.conf文件已更新，重新加载UID列表")
@@ -54,8 +51,11 @@ while True:
 
 
     url = "http://127.0.0.1:65301/room/v1/Room/get_status_info_by_uids"
-    headers = {"Content-Type": "application/json"}
-    data = {"uids": uids}  # 使用从uid.conf文件中读取的UID数据
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
+        # 'cookie': "DedeUserID=549792941;DedeUserID__ckMd5=e4f1eea16a2a9be3;Expires=15551000;SESSDATA=fabcbdc8%2C1709805149%2C526df%2A91;bili_jct=009ae21e76970e9d1280cbc65365714f;LIVE_BUVID=AUTO5016942531501926"
+    }
+    data = {"uids": uids}
 
     try:
         response = requests.post(url, headers=headers, json=data)
@@ -85,14 +85,12 @@ while True:
                     logger.info(log_title_message)
                     logger.info("")
 
-            # 打印脚本结束时间到日志
             logger.info(f"========== END ==========")
             logger.info("")
         else:
             error_message = f"请求失败，状态码: {response.status_code}"
             logger.error(error_message)
     except requests.exceptions.RequestException as e:
-        # 捕获网络错误，并打印错误消息
         logger.error(f"网络错误: {str(e)}")
 
     # 等待一小时

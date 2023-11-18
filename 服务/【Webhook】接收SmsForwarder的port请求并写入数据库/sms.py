@@ -1,6 +1,7 @@
+import uvicorn
+import mysql.connector
 from fastapi import FastAPI
 from pydantic import BaseModel
-import mysql.connector
 from datetime import datetime
 
 app = FastAPI()
@@ -19,25 +20,30 @@ class Message(BaseModel):
 
 @app.put("/webhook")
 async def handle_webhook(message: Message):
-    message.receive_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    message.receive_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with mysql.connector.connect(
         host="10.0.0.111",
-        port='3306',
+        port="3306",
         user="sms",
         password="gy6S*NPYNpki9TP5",
         database="sms",
-        charset="utf8mb4"
+        charset="utf8mb4",
     ) as connection:
         with connection.cursor() as cursor:
             sql = "INSERT INTO messages ( `from`, `title`, `org_content`, `receive_time`) VALUES (%s, %s, %s, %s)"
-            cursor.execute(sql, (message.from_,
-                                message.title,
-                                message.org_content,
-                                message.receive_time)
-                        )
+            cursor.execute(
+                sql,
+                (
+                    message.from_,
+                    message.title,
+                    message.org_content,
+                    message.receive_time,
+                ),
+            )
             connection.commit()
 
+    # 打印写入的内容
+    print(f"写入数据库成功：{message.dict()}")
 
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

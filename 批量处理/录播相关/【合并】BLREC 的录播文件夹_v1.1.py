@@ -3,9 +3,8 @@ import re
 from collections import defaultdict
 from datetime import datetime
 
-
+# 提取信息
 def parse_folder_name(folder_name):
-    # 使用正则表达式从文件夹名称中提取日期、标题和后缀信息
     pattern = r"(\d{8})-(\d{6})_(.+)\【(blrec-flv|blrec-hls)\】"
     match = re.match(pattern, folder_name)
     if match:
@@ -54,9 +53,8 @@ def merge_folders(folder_paths):
 
     print("[Info] 全部完成")
 
-
+# 将源文件夹中的文件移动到目标文件夹中
 def merge_files(target_folder, source_folder):
-    # 将源文件夹中的文件移动到目标文件夹中
     for filename in os.listdir(source_folder):
         source_file = os.path.join(source_folder, filename)
         target_file = os.path.join(target_folder, filename)

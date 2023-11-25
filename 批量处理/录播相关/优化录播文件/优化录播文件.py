@@ -3,11 +3,37 @@ import shutil
 import re
 from collections import defaultdict
 from datetime import datetime
+import subprocess
 
-# 移动文件夹
+# 移动文件夹 调用 FastCopy 进行移动并覆盖
+
 def move_folder(source, target):
     print(f"移动文件夹: {source} -> {target}")
-    shutil.move(source, target)
+
+    try:
+        shutil.move(source, target)
+        print("移动成功")
+        
+    except shutil.Error as e:
+        print(f"shutil.move 失败: {e}")
+        print("尝试使用 FastCopy 进行移动并覆盖")
+
+        fastcopy_path = r'C:\jkfujr\Tool\FastCopy64\fcp.exe'
+        command = [fastcopy_path, '/cmd=move', '/to=' + target, source]
+
+        try:
+            subprocess.run(command, check=True)
+            print("FastCopy 移动成功")
+
+            # 检测源文件夹是否为空
+            if not os.listdir(source):
+                os.rmdir(source)
+                print(f"删除源文件夹: {source}")
+            else:
+                print(f"源文件夹不为空，不删除: {source}")
+                
+        except subprocess.CalledProcessError as e:
+            print(f"FastCopy 移动失败: {e}")
 
 # 合并文件夹
 def merge_folders(main_folder, folders_to_merge):

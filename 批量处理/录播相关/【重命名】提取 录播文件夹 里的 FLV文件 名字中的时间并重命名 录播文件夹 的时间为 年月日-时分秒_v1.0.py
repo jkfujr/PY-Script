@@ -2,7 +2,7 @@ import os
 import re
 import datetime
 
-root_directory = r"E:\下载\乙夜かろり_karory"
+root_directory = r"E:\录播\综合\三日暦Official\新建文件夹"
 
 # 遍历根目录和子文件夹
 for root, dirs, files in os.walk(root_directory):

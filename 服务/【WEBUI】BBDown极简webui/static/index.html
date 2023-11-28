@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BBD</title>
+    <script>
+        var ws;
+        var commands = {};
+
+        function startWebSocket() {
+            ws = new WebSocket("ws://" + window.location.host + "/ws");
+
+            ws.onmessage = function(event) {
+                var data = JSON.parse(event.data);
+                var logElement = document.getElementById("log_" + data.id);
+                var progressElement = document.getElementById("progress_" + data.id);
+
+                if(logElement && progressElement) {
+                    progressElement.textContent = data.progress;
+                    logElement.value += data.log + '\n';
+                }
+            };
+
+            ws.onerror = function(event) {
+                console.error("WebSocket error observed:", event);
+            };
+        }
+
+        function sendCmd() {
+            var cmd_input = document.getElementById("cmd_input").value;
+            var id = Math.random().toString(36).substring(7);
+            commands[id] = cmd_input;
+
+            createProgressAndLogElements(id);
+            ws.send(JSON.stringify({id: id, cmd: cmd_input}));
+        }
+
+        function createProgressAndLogElements(id) {
+            var container = document.getElementById("progress_logs");
+            var progressElement = document.createElement('p');
+            progressElement.id = "progress_" + id;
+            container.appendChild(progressElement);
+
+            var logElement = document.createElement('textarea');
+            logElement.id = "log_" + id;
+            logElement.rows = 10;
+            logElement.cols = 50;
+            logElement.readOnly = true;
+            container.appendChild(logElement);
+        }
+
+        window.onload = startWebSocket;
+    </script>
+</head>
+<body>
+    <label for="cmd_input">输入连接: </label>
+    <input type="text" id="cmd_input" name="cmd_input" value=""><br><br>
+    <button onclick="sendCmd()">确认</button>
+    <div id="progress_logs"></div>
+</body>
+</html>

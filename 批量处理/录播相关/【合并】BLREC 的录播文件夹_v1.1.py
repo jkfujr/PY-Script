@@ -64,5 +64,6 @@ def merge_files(target_folder, source_folder):
 if __name__ == "__main__":
     folder_paths = [
         r"F:\Video\PPPPPPPPPP",
+        r"F:\Video\AAAAAAAAAA"
     ]
     merge_folders(folder_paths)

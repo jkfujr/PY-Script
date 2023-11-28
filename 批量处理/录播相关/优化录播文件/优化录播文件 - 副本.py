@@ -6,8 +6,24 @@ from datetime import datetime
 
 # 移动文件夹
 def move_folder(source, target):
-    print(f"移动文件夹: {source} -> {target}")
-    shutil.move(source, target)
+    if not os.path.exists(target):
+        print(f"移动文件夹：{source} -> {target}")
+        shutil.move(source, target)
+    else:
+        print(f"目标文件夹已存在，合并内容：{source} -> {target}")
+        for item in os.listdir(source):
+            source_item_path = os.path.join(source, item)
+            target_item_path = os.path.join(target, item)
+            if os.path.exists(target_item_path):
+                print(f"目标位置已存在同名项，跳过：{target_item_path}")
+                continue
+            print(f"移动项：{source_item_path} -> {target_item_path}")
+            shutil.move(source_item_path, target_item_path)
+        try:
+            os.rmdir(source)
+            print(f"源文件夹已清空，已删除：{source}")
+        except OSError:
+            print(f"源文件夹未完全清空，未删除：{source}")
 
 # 合并文件夹
 def merge_folders(main_folder, folders_to_merge):
@@ -19,6 +35,7 @@ def merge_folders(main_folder, folders_to_merge):
             print(f"将 {item_path} 移动到 {target_item_path}")
             shutil.move(item_path, target_item_path)
         os.rmdir(folder)
+
 # 处理用户文件夹
 def process_user_folder(user_folder_path):
     print(f"处理文件夹: {user_folder_path}")

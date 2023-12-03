@@ -4,6 +4,8 @@ import re
 from collections import defaultdict
 from datetime import datetime
 
+# 跳过blrec的录播
+skip_substrings = ["【blrec-flv】", "【blrec-hls】"]
 
 # 移动文件夹
 def move_folder(source, target):
@@ -30,8 +32,7 @@ def move_folder(source, target):
 def merge_folders(main_folder, folders_to_merge):
     print(f"合并文件夹: {main_folder} <- {folders_to_merge}")
     for folder in folders_to_merge:
-        # 跳过包含特定文本的子文件夹
-        if any(substring in folder for substring in ["【blrec-flv】", "【blrec-hls】"]):
+        if any(substring in folder for substring in skip_substrings):
             # print(f"[debug] 跳过子文件夹：{folder}")
             continue
 
@@ -60,7 +61,7 @@ def process_user_folder(user_folder_path):
         for subfolder in subfolders:
             subfolder_path = os.path.join(user_folder_path, subfolder)
             
-            # 修改正则匹配部分
+            # 正则匹配
             match = re.search(r'(\d{8}-\d{6})', subfolder)
             if match:
                 time_info = match.group()
@@ -81,6 +82,12 @@ def process_user_folder(user_folder_path):
 # 处理合并逻辑
 def process_merge_logic(user_folder_path, subfolder_info):
     for time_info, subfolder_list in subfolder_info.items():
+        valid_subfolders = [subfolder for subfolder in subfolder_list if not any(skip_str in subfolder for skip_str in skip_substrings)]
+        
+        # 如果没有有效的子文件夹，跳过当前时间信息的处理
+        if not valid_subfolders:
+            continue
+        
         if len(subfolder_list) >= 2:
             # print(f"[debug] 子文件夹日期时间一样但标题不一样: {time_info}")
             # print(f"[debug] 子文件夹列表: {subfolder_list}")
@@ -100,32 +107,30 @@ def process_merge_logic(user_folder_path, subfolder_info):
 
             # 找到时间最大的FLV所在的子文件夹
             max_date_folder = max(flv_time_mapping, key=flv_time_mapping.get)
-
             # print(f"[debug] 时间最大的FLV所在的子文件夹: {max_date_folder}")
 
             # 获取子文件夹路径
             main_subfolder_path = os.path.join(user_folder_path, max_date_folder)
 
-            # 添加条件判断，跳过包含特定文本的子文件夹
-            if any(substring in main_subfolder_path for substring in ["【blrec-flv】", "【blrec-hls】"]):
+            if any(substring in main_subfolder_path for substring in skip_substrings):
                 continue
 
             # 合并其他日期时间一样但标题不一样的子文件夹
             merge_folders(main_subfolder_path, [os.path.join(user_folder_path, subfolder) for subfolder in subfolder_list if subfolder != max_date_folder])
 
-            # 删除合并后的空主子文件夹
+            # 删除合并后的空文件夹
             if not os.listdir(main_subfolder_path):
                 os.rmdir(main_subfolder_path)
-
-            return True  # 合并逻辑执行成功
-
-    return False  # 未执行合并逻辑
+            return True
+        
+    return False
 
 source_path = r'F:\Video\AAAAAAAAAA'
 target_path = r'F:\Video\AAAAAAAAAA\000'
 
 # 遍历用户文件夹
 for user_folder in os.listdir(source_path):
+
     # 跳过文件夹
     if user_folder in ["000", "111"]:
         continue
@@ -134,9 +139,8 @@ for user_folder in os.listdir(source_path):
     if not os.path.isdir(user_folder_path):
         continue
 
-    # 检查是否是社团文件夹
+    # 检查是否是社团文件夹，如果是则进入下一层文件夹
     is_social_folder = user_folder in ["NIJISANJI", "HOLOLIVE", "VSPO"]
-    # 如果是则进入下一层文件夹
     if is_social_folder:
         for sub_user_folder in os.listdir(user_folder_path):
             sub_user_folder_path = os.path.join(user_folder_path, sub_user_folder)

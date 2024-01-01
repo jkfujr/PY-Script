@@ -19,12 +19,6 @@ run_danmaku_corr = True
 # 转换弹幕为录播姬弹幕xml样式 (依赖弹幕格式修正)
 run_danmaku_txt_to_xml = True
 
-# 定义脚本路径
-file_rename_path = os.path.join(script_dir, "core", "file_rename.py")
-file_rename_rec_path = os.path.join(script_dir, "core", "file_rename_rec.py")
-file_move_path = os.path.join(script_dir, "core", "file_move.py")
-danmaku_corr_path = os.path.join(script_dir, "core", "danmaku_corr.py")
-danmaku_txt_to_xml_path = os.path.join(script_dir, "core", "danmaku_txt_to_xml.py")
 
 def execute(script_path, variable, script_name):
     try:
@@ -39,21 +33,21 @@ def execute(script_path, variable, script_name):
 
 # 根据开关决定是否执行
 if run_file_rename:
-    execute(file_rename_path, file_path, "重命名指定的文件夹名")
+    execute(os.path.join(script_dir, "core", "file_rename.py"), file_path, "重命名指定的文件夹名")
     time.sleep(1)
 
 if run_file_rename_rec:
-    execute(file_rename_rec_path, file_path, "重命名弹幕与录播文件名")
+    execute(os.path.join(script_dir, "core", "file_rename_rec.py"), file_path, "重命名弹幕与录播文件名")
     time.sleep(1)
 
 if run_file_move:
-    execute(file_move_path, file_path, "移动弹幕与录播文件")
+    execute(os.path.join(script_dir, "core", "file_move.py"), file_path, "移动弹幕与录播文件")
     time.sleep(1)
 
 if run_danmaku_corr:
-    execute(danmaku_corr_path, file_path, "弹幕修正")
+    execute(os.path.join(script_dir, "core", "danmaku_corr.py"), file_path, "弹幕修正")
     time.sleep(1)
 
 if run_danmaku_txt_to_xml:
-    execute(danmaku_txt_to_xml_path, file_path, "txt弹幕转xml弹幕")
+    execute(os.path.join(script_dir, "core", "danmaku_txt_to_xml.py"), file_path, "txt弹幕转xml弹幕")
     time.sleep(1)

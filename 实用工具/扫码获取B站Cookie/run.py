@@ -3,19 +3,35 @@ import qrcode
 import re
 import time
 
-
 user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69'
 
-
 def get_login_key_and_login_url():
-    url = 'https://passport.bilibili.com/qrcode/getLoginUrl'
+    url = 'https://passport.bilibili.com/x/passport-login/web/qrcode/generate'
     headers = {'User-Agent': user_agent}
     response = requests.get(url, headers=headers)
     data = response.json()
-    login_key = data['data']['oauthKey']
+    login_key = data['data']['qrcode_key']
     login_url = data['data']['url']
     return login_key, login_url
 
+def verify_login(login_key):
+    while True:
+        url = 'https://passport.bilibili.com/x/passport-login/web/qrcode/poll'
+        headers = {'User-Agent': user_agent}
+        params = {'qrcode_key': login_key}
+        response = requests.get(url, headers=headers, params=params)
+        data = response.json()
+        if data['data']['url']:
+            cookie = {item.split("=")[0]: item.split("=")[1] for item in response.headers['Set-Cookie'].split(';')}
+            live_buvid = get_live_buvid()
+            cookie['LIVE_BUVID'] = live_buvid
+            cookie_content = ";".join([f"{key}={value}" for key, value in cookie.items()])
+            with open('cookie.txt', 'w') as f:
+                f.write(cookie_content)
+            print("扫码成功，cookie如下，已自动保存在当前目录下 cookie.txt 文件:")
+            print(cookie_content)
+            break
+        time.sleep(3)
 
 def get_live_buvid():
     url = 'https://api.live.bilibili.com/gift/v3/live/gift_config'
@@ -25,35 +41,6 @@ def get_live_buvid():
     pattern = r'LIVE_BUVID=(AUTO[0-9]+)'
     live_buvid = re.search(pattern, set_cookie).group(1)
     return live_buvid
-
-
-def verify_login(login_key):
-    while True:
-        url = 'https://passport.bilibili.com/qrcode/getLoginInfo'
-        headers = {'User-Agent': user_agent}
-        data = {'oauthKey': login_key}
-        response = requests.post(url, headers=headers, data=data)
-        data = response.json()
-        if data['status']:
-            url = data['data']['url']
-            pattern = r'DedeUserID=(\d+)&DedeUserID__ckMd5=([0-9a-zA-Z]+)&Expires=(\d+)&SESSDATA=([0-9a-zA-Z%]+)&bili_jct=([0-9a-zA-Z]+)&'
-            match = re.search(pattern, url)
-            cookie = {
-                'DedeUserID': match.group(1),
-                'DedeUserID__ckMd5': match.group(2),
-                'Expires': match.group(3),
-                'SESSDATA': match.group(4),
-                'bili_jct': match.group(5),
-                'LIVE_BUVID': get_live_buvid()
-            }
-            cookie_content = f"DedeUserID={cookie['DedeUserID']};DedeUserID__ckMd5={cookie['DedeUserID__ckMd5']};Expires={cookie['Expires']};SESSDATA={cookie['SESSDATA']};bili_jct={cookie['bili_jct']};LIVE_BUVID={cookie['LIVE_BUVID']}"
-            with open('cookie.txt', 'w') as f:
-                f.write(cookie_content)
-            print(f"扫码成功, cookie如下,已自动保存在当前目录下 cookie.txt 文件:")
-            print(cookie_content)
-            break
-        time.sleep(3)
-
 
 def is_login():
     url = 'https://api.bilibili.com/x/web-interface/nav'
@@ -70,7 +57,6 @@ def is_login():
     data = response.json()
     return data['code'] == 0, data, cookie_str, csrf
 
-
 def login():
     while True:
         is_logged_in, data, cookie_str, csrf = is_login()
@@ -78,7 +64,7 @@ def login():
             uname = data['data']['uname']
             print(f"{uname}已登录")
             return cookie_str, csrf
-        print("未登录,或cookie已过期,请扫码登录")
+        print("未登录，或cookie已过期，请扫码登录")
         input("请最大化窗口，以确保二维码完整显示，回车继续")
         login_key, login_url = get_login_key_and_login_url()
         qr = qrcode.QRCode(
@@ -95,7 +81,6 @@ def login():
         print("若依然无法扫描，请将以下链接复制到B站打开并确认(任意私信一个人,最好是B站官号，发送链接即可打开)")
         print(login_url)
         verify_login(login_key)
-
 
 if __name__ == '__main__':
     login()

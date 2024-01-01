@@ -28,9 +28,7 @@ def merge_folders(folder_paths):
                     date, title, suffix = parse_folder_name(folder_name)
                     if date and title and suffix:
                         # 将具有相同日期、标题和后缀的文件夹分组
-                        folders[(date.date(), title, suffix)].append(
-                            (date, folder_full_path)
-                        )
+                        folders[(date.date(), title, suffix)].append((date, folder_full_path))
 
     # 合并具有相同日期且时间差小于4小时的文件夹
     for _, folder_list in folders.items():

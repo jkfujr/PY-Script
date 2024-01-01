@@ -4,8 +4,8 @@ import re
 from collections import defaultdict
 from datetime import datetime
 
-# 跳过blrec的录播
-skip_substrings = ["【blrec-flv】", "【blrec-hls】"]
+# 需要跳过的录播子文件夹
+skip_substrings = ["【blrec-flv】", "【blrec-hls】", "000_部分丢失"]
 
 # 移动文件夹
 def move_folder(source, target):
@@ -127,6 +127,9 @@ def process_merge_logic(user_folder_path, subfolder_info):
 
 source_path = r'F:\Video\AAAAAAAAAA'
 target_path = r'F:\Video\AAAAAAAAAA\000'
+
+# source_path = r'F:\Video\PPPPPPPPPP'
+# target_path = r'F:\Video\PPPPPPPPPP\000'
 
 # 遍历用户文件夹
 for user_folder in os.listdir(source_path):

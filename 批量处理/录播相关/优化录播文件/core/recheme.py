@@ -174,7 +174,6 @@ def recheme_main(folder_path_id, enable_move, social_folders, skip_folders, rech
             if user_folder in skip_folders:
                 continue
 
-            # 传递所有必需的参数到 process_user_folder 函数
             process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_skip_substrings)
 
             user_folder_path = os.path.join(source_path, user_folder)

@@ -42,7 +42,7 @@ enable_move = True
 folder_path_id = {
     "AAA": {"source": r"F:\Video\AAAAAAAAAA", "target": r"F:\Video\AAAAAAAAAA\000"},
     "PPP": {"source": r"F:\Video\PPPPPPPPPP", "target": r"F:\Video\PPPPPPPPPP\000"},
-    "TEST": {"source": r"F:\测试数据"},
+    "TEST": {"source": r"F:\测试数据", "target": r"F:\测试数据\000"},
 }
 
 # (全局)社团文件夹名称列表

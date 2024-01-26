@@ -43,14 +43,24 @@ def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_sk
 
     user_folder_path = os.path.join(source_path, user_folder)
 
-    # 检查文件夹是否存在
     if not os.path.exists(user_folder_path):
         logging.error(f"[录播姬] 文件夹不存在，无法处理: {user_folder_path}")
         return
 
-    # 循环直到没有需要合并的子文件夹
+    special_subfolder_name = "19700101-080000"
+    special_subfolder = None
+    matched_subfolders = []
+
+    subfolders = os.listdir(user_folder_path)
+
+    # 提前检查特殊时间戳子文件夹
+    for subfolder in subfolders:
+        if special_subfolder_name in subfolder:
+            special_subfolder = subfolder
+            logging.debug(f"[录播姬] 发现特殊时间戳子文件夹：{special_subfolder}")
+            break
+
     while True:
-        subfolders = os.listdir(user_folder_path)
         if len(subfolders) == 0:
             break
 
@@ -78,7 +88,6 @@ def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_sk
             else:
                 logging.debug(f"[录播姬] 子文件夹命名不符合规则，跳过：{subfolder}")
 
-        # 如果没有可合并的子文件夹，结束循环
         if not subfolder_info:
             break
 
@@ -87,24 +96,72 @@ def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_sk
         for time_info, subfolder_list in subfolder_info.items():
             if len(subfolder_list) >= 2:
                 merge_logic_result = process_merge_logic(
-                    id, user_folder, {time_info: subfolder_list}, folder_path_id, recheme_skip_substrings
+                    id,
+                    user_folder,
+                    {time_info: subfolder_list},
+                    folder_path_id,
+                    recheme_skip_substrings,
                 )
                 if merge_logic_result:
                     merge_completed = True
                     break
 
-        # 如果这轮没有合并操作，结束循环
         if not merge_completed:
             break
+
+
+    # 再检查特殊时间戳子文件夹
+    if special_subfolder:
+        for subfolder in os.listdir(user_folder_path):
+            if special_subfolder.split("_", 1)[1] in subfolder and subfolder != special_subfolder:
+                matched_subfolders.append(subfolder)
+                logging.debug(f"[录播姬] 找到匹配的子文件夹：{subfolder}")
+
+        # 如果找到一个以上匹配的子文件夹，跳过合并操作
+        if len(matched_subfolders) == 1:
+            matched_subfolder = matched_subfolders[0]
+            special_subfolder_path = os.path.join(user_folder_path, special_subfolder)
+            matched_subfolder_path = os.path.join(user_folder_path, matched_subfolder)
+
+        # 读取特殊子文件夹内的FLV文件时间
+        special_date = None
+        for f in os.listdir(special_subfolder_path):
+            if f.endswith(".flv"):
+                try:
+                    special_date = datetime.strptime(
+                        f.split("_", 1)[0], "%Y%m%d-%H%M%S-%f"
+                    ).date()
+                    logging.debug(f"[录播姬] 特殊子文件夹FLV时间读取：{special_date}")
+                except ValueError:
+                    logging.error(f"[录播姬] 无法解析FLV文件名中的日期：{f}")
+                    continue
+                break
+
+        matched_date = datetime.strptime(
+            matched_subfolder.split("_", 1)[0], "%Y%m%d-%H%M%S"
+        ).date()
+
+        if special_date and special_date == matched_date:
+            logging.debug(f"[录播姬] 合并文件夹：{special_subfolder} -> {matched_subfolder}")
+            merge_folders(
+                matched_subfolder_path,
+                [special_subfolder_path],
+                recheme_skip_substrings,
+            )
 
     logging.info(f"[录播姬] 处理完成文件夹: {user_folder}")
 
 
 # 获取有效的子文件夹，并记录调试日志
 def get_valid_subfolders(subfolder_list, skip_substrings):
-    valid_subfolders = [subfolder for subfolder in subfolder_list if not any(skip_str in subfolder for skip_str in skip_substrings)]
-    logging.debug(f"有效子文件夹筛选结果：{valid_subfolders}")
+    valid_subfolders = [
+        subfolder
+        for subfolder in subfolder_list
+        if not any(skip_str in subfolder for skip_str in skip_substrings)
+    ]
+    logging.debug(f"[录播姬] 有效子文件夹筛选结果：{valid_subfolders}")
     return valid_subfolders
+
 
 # 处理FLV文件，并记录调试日志
 def process_flv_files(subfolder_list, user_folder_path):
@@ -113,15 +170,26 @@ def process_flv_files(subfolder_list, user_folder_path):
         subfolder_path = os.path.join(user_folder_path, subfolder)
         flv_files = [f for f in os.listdir(subfolder_path) if f.endswith(".flv")]
         if flv_files:
-            flv_files.sort(key=lambda f: datetime.strptime(re.search(r"(\d{8}-\d{6})", f).group(), "%Y%m%d-%H%M%S"))
+            flv_files.sort(
+                key=lambda f: datetime.strptime(
+                    re.search(r"(\d{8}-\d{6})", f).group(), "%Y%m%d-%H%M%S"
+                )
+            )
             max_date_flv = flv_files[-1]
-            flv_time_mapping[subfolder] = datetime.strptime(re.search(r"(\d{8}-\d{6})", max_date_flv).group(), "%Y%m%d-%H%M%S")
-    max_date_folder = max(flv_time_mapping, key=flv_time_mapping.get) if flv_time_mapping else None
+            flv_time_mapping[subfolder] = datetime.strptime(
+                re.search(r"(\d{8}-\d{6})", max_date_flv).group(), "%Y%m%d-%H%M%S"
+            )
+    max_date_folder = (
+        max(flv_time_mapping, key=flv_time_mapping.get) if flv_time_mapping else None
+    )
     logging.debug(f"[录播姬] FLV文件处理结果：{max_date_folder}")
     return max_date_folder
 
+
 # 处理合并逻辑，并记录日志信息
-def process_merge_logic(id, user_folder, subfolder_info, folder_path_id, recheme_skip_substrings):
+def process_merge_logic(
+    id, user_folder, subfolder_info, folder_path_id, recheme_skip_substrings
+):
     logging.debug(f"[录播姬] 开始处理合并逻辑，用户ID：{id}, 用户文件夹：{user_folder}")
     source_path = folder_path_id[id]["source"]
     user_folder_path = os.path.join(source_path, user_folder)
@@ -138,14 +206,22 @@ def process_merge_logic(id, user_folder, subfolder_info, folder_path_id, recheme
             continue
 
         main_subfolder_path = os.path.join(user_folder_path, max_date_folder)
-        if any(substring in main_subfolder_path for substring in recheme_skip_substrings):
+        if any(
+            substring in main_subfolder_path for substring in recheme_skip_substrings
+        ):
             logging.debug(f"[录播姬] 主文件夹包含跳过子字符串，跳过：{main_subfolder_path}")
             continue
 
         logging.info(f"[录播姬] 合并文件夹：{main_subfolder_path}")
-        merge_folders(main_subfolder_path, [
-            os.path.join(user_folder_path, subfolder) for subfolder in valid_subfolders if subfolder != max_date_folder
-        ], recheme_skip_substrings)
+        merge_folders(
+            main_subfolder_path,
+            [
+                os.path.join(user_folder_path, subfolder)
+                for subfolder in valid_subfolders
+                if subfolder != max_date_folder
+            ],
+            recheme_skip_substrings,
+        )
 
         if not os.listdir(main_subfolder_path):
             os.rmdir(main_subfolder_path)
@@ -156,7 +232,9 @@ def process_merge_logic(id, user_folder, subfolder_info, folder_path_id, recheme
     return False
 
 
-def recheme_main(folder_path_id, enable_move, social_folders, skip_folders, recheme_skip_substrings):
+def recheme_main(
+    folder_path_id, enable_move, social_folders, skip_folders, recheme_skip_substrings
+):
     # 遍历用户文件夹
     for id, paths in folder_path_id.items():
         source_path = paths["source"]
@@ -174,7 +252,9 @@ def recheme_main(folder_path_id, enable_move, social_folders, skip_folders, rech
             if user_folder in skip_folders:
                 continue
 
-            process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_skip_substrings)
+            process_user_folder(
+                id, user_folder, enable_move, folder_path_id, recheme_skip_substrings
+            )
 
             user_folder_path = os.path.join(source_path, user_folder)
             if not os.path.isdir(user_folder_path):
@@ -194,10 +274,22 @@ def recheme_main(folder_path_id, enable_move, social_folders, skip_folders, rech
                         target_path, user_folder, sub_user_folder
                     )
                     logging.info(f"[录播姬] 开始处理源路径: {sub_user_folder_path}")
-                    process_user_folder(id, sub_user_folder_path, enable_move, folder_path_id, recheme_skip_substrings)
+                    process_user_folder(
+                        id,
+                        sub_user_folder_path,
+                        enable_move,
+                        folder_path_id,
+                        recheme_skip_substrings,
+                    )
             else:
                 logging.info(f"[录播姬] 开始处理文件夹: {user_folder_path}")
-                process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_skip_substrings)
+                process_user_folder(
+                    id,
+                    user_folder,
+                    enable_move,
+                    folder_path_id,
+                    recheme_skip_substrings,
+                )
 
         # 删除空文件夹
         if not os.listdir(source_path):

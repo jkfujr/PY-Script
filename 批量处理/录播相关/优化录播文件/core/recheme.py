@@ -32,7 +32,9 @@ def merge_folders(main_folder, folders_to_merge, recheme_skip_substrings):
 
 
 # 处理文件夹
-def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_skip_substrings):
+def process_user_folder(
+    id, user_folder, enable_move, folder_path_id, recheme_skip_substrings
+):
     logging.info(f"[录播姬] 开始处理文件夹: {user_folder}")
     source_path = folder_path_id[id]["source"]
     target_path = folder_path_id[id].get("target")
@@ -51,16 +53,8 @@ def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_sk
     special_subfolder = None
     matched_subfolders = []
 
-    subfolders = os.listdir(user_folder_path)
-
-    # 提前检查特殊时间戳子文件夹
-    for subfolder in subfolders:
-        if special_subfolder_name in subfolder:
-            special_subfolder = subfolder
-            logging.debug(f"[录播姬] 发现特殊时间戳子文件夹：{special_subfolder}")
-            break
-
     while True:
+        subfolders = os.listdir(user_folder_path)
         if len(subfolders) == 0:
             break
 
@@ -109,19 +103,22 @@ def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_sk
         if not merge_completed:
             break
 
-
-    # 再检查特殊时间戳子文件夹
-    if special_subfolder:
-        for subfolder in os.listdir(user_folder_path):
-            if special_subfolder.split("_", 1)[1] in subfolder and subfolder != special_subfolder:
+    # 合并操作之后，检查特殊时间戳子文件夹
+    for subfolder in subfolders:
+        if special_subfolder_name in subfolder:
+            special_subfolder = subfolder
+            logging.debug(f"[录播姬] 发现特殊时间戳子文件夹：{special_subfolder}")
+        elif special_subfolder:
+            # 检查与特殊时间戳子文件夹标题相同的子文件夹
+            if special_subfolder.split("_", 1)[1] in subfolder:
                 matched_subfolders.append(subfolder)
                 logging.debug(f"[录播姬] 找到匹配的子文件夹：{subfolder}")
 
-        # 如果找到一个以上匹配的子文件夹，跳过合并操作
-        if len(matched_subfolders) == 1:
-            matched_subfolder = matched_subfolders[0]
-            special_subfolder_path = os.path.join(user_folder_path, special_subfolder)
-            matched_subfolder_path = os.path.join(user_folder_path, matched_subfolder)
+    # 如果找到一个以上匹配的子文件夹，跳过合并操作
+    if special_subfolder and len(matched_subfolders) == 1:
+        matched_subfolder = matched_subfolders[0]
+        special_subfolder_path = os.path.join(user_folder_path, special_subfolder)
+        matched_subfolder_path = os.path.join(user_folder_path, matched_subfolder)
 
         # 读取特殊子文件夹内的FLV文件时间
         special_date = None
@@ -142,7 +139,7 @@ def process_user_folder(id, user_folder, enable_move, folder_path_id, recheme_sk
         ).date()
 
         if special_date and special_date == matched_date:
-            logging.debug(f"[录播姬] 合并文件夹：{special_subfolder} -> {matched_subfolder}")
+            logging.info(f"[录播姬] 合并文件夹：{special_subfolder} -> {matched_subfolder}")
             merge_folders(
                 matched_subfolder_path,
                 [special_subfolder_path],

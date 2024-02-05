@@ -52,9 +52,7 @@ while True:
 
     url = "http://127.0.0.1:65301/room/v1/Room/get_status_info_by_uids"
     headers = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
-        # 'cookie': "DedeUserID=549792941;DedeUserID__ckMd5=e4f1eea16a2a9be3;Expires=15551000;SESSDATA=fabcbdc8%2C1709805149%2C526df%2A91;bili_jct=009ae21e76970e9d1280cbc65365714f;LIVE_BUVID=AUTO5016942531501926"
-    }
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'    }
     data = {"uids": uids}
 
     try:

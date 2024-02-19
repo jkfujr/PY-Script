@@ -52,7 +52,7 @@ social_folders = ["NIJISANJI", "HOLOLIVE", "VSPO"]
 skip_folders = ["000", "111"]
 
 # (录播姬)需要跳过的录播子文件夹
-recheme_skip_substrings = ["【blrec-flv】", "【blrec-hls】", "000_部分丢失"]
+recheme_skip_substrings = ["【blrec-flv】", "【blrec-hls】", "000_部分丢失", "1970"]
 
 
 # blrec

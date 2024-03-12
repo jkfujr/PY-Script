@@ -5,7 +5,6 @@ import asyncio
 
 app = FastAPI()
 
-# 将HTML文件放置在一个名为"static"的目录下，并使用StaticFiles来提供服务
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 async def run_cmd(websocket: WebSocket, cmd_input: str):

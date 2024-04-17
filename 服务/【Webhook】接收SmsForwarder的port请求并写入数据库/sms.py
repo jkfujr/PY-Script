@@ -1,40 +1,42 @@
 import os
+import logging
 import aiomysql
 import uvicorn
 import asyncio
-import logging
 from logging.handlers import TimedRotatingFileHandler
-from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI
 from pydantic import BaseModel
 from datetime import datetime
-from queue import Queue
 
 # 日志配置
+# 确保日志目录存在
 log_dir = "logs"
-os.makedirs(log_dir, exist_ok=True)
-log_file_path = os.path.join(
-    log_dir, "log_{0}.log".format(datetime.now().strftime("%Y-%m-%d"))
-)
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
-# 配置日志记录器
-logger = logging.getLogger("uvicorn")
+# 配置日志文件路径
+log_file_path = os.path.join(log_dir, "log_{0}.log".format(datetime.now().strftime("%Y-%m-%d")))
+
+# 创建日志记录器
+logger = logging.getLogger("my_logger")
 logger.setLevel(logging.DEBUG)
 
-# 文件处理器 - 每天分割日志，保留 30 天
-file_handler = TimedRotatingFileHandler(
-    log_file_path, when="midnight", interval=1, backupCount=30, encoding="utf-8"
-)
-file_formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-file_handler.setFormatter(file_formatter)
-logger.addHandler(file_handler)
+# 创建一个每天轮转的文件处理器，保留30天
+handler = TimedRotatingFileHandler(log_file_path, when="midnight", interval=1, backupCount=30, encoding="utf-8")
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
-# 控制台处理器
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(file_formatter)
-logger.addHandler(console_handler)
+
+# 合并日志与打印信息
+def log_and_print(message, prefix="", level="INFO"):
+    if isinstance(level, str):
+        level = getattr(logging, level.upper(), logging.INFO)
+    # 日志
+    logger = logging.getLogger()
+    logger.log(level, message)
+    # 打印
+    print(prefix + message)
 
 
 # 消息模型
@@ -44,17 +46,13 @@ class Message(BaseModel):
     org_content: str
     receive_time: str
 
-
+# 全局变量
+message_buffer = []
+db_connected = False
 db_pool = None
-message_queue = Queue()
 
-
-app = FastAPI()
-
-
-# 数据库配置
 async def connect_to_db():
-    global db_pool
+    global db_connected
     while True:
         try:
             db_pool = await aiomysql.create_pool(
@@ -67,71 +65,65 @@ async def connect_to_db():
                 minsize=5,
                 maxsize=10,
             )
-            logger.info("成功连接到数据库")
-            break
+            log_and_print("成功连接到数据库.", "INFO:     ", "INFO")
+            db_connected = True
+            return db_pool
         except Exception as e:
-            logger.error(f"无法连接到数据库: {e}")
-            await asyncio.sleep(5)
+            log_and_print(f"连接数据库失败: {e}, 将在10秒后重试...", "ERROR:     ", "ERROR")
+            db_connected = False
+            await asyncio.sleep(10)
 
-
-async def insert_to_db(message):
-    async with db_pool.acquire() as conn:
-        try:
-            async with conn.cursor() as cursor:
-                sql = "INSERT INTO messages (`from`, `title`, `org_content`, `receive_time`) VALUES (%s, %s, %s, %s)"
-                await cursor.execute(
-                    sql,
-                    (
-                        message.from_,
-                        message.title,
-                        message.org_content,
-                        message.receive_time,
-                    ),
-                )
-                await conn.commit()
-                logger.info(
-                    f"写入数据库成功：{message.dict() if hasattr(message, 'dict') else message.model_dump()}"
-                )
-        except Exception as e:
-            logger.error(f"数据库操作异常: {e}")
-
-
-# 如果队列不为空并且数据库已连接，则将队列中的消息插入数据库
-async def process_queue():
-    while True:
-        if not message_queue.empty() and db_pool:
-            message = message_queue.get()
-            await insert_to_db(message)
-        await asyncio.sleep(1)
-
-
-# 初始化连接到数据库的任务和处理队列的任务
-async def initialize_app():
-
-    await connect_to_db()
-    asyncio.create_task(process_queue())
-
-
-# 等待数据库连接成功后返回连接对象
-async def get_connection():
+async def initialize():
     global db_pool
-    while not db_pool:
-        await asyncio.sleep(1)
+    db_pool = await connect_to_db()
+
+async def shutdown():
+    global db_pool
+    if db_pool:
+        db_pool.close()
+        await db_pool.wait_closed()
+
+async def get_connection():
     async with db_pool.acquire() as conn:
         yield conn
 
+async def write_to_db():
+    global message_buffer, db_connected
+    while True:
+        if message_buffer and db_connected:
+            try:
+                async with db_pool.acquire() as conn:
+                    async with conn.cursor() as cursor:
+                        for message in message_buffer:
+                            sql = "INSERT INTO messages (`from`, `title`, `org_content`, `receive_time`) VALUES (%s, %s, %s, %s)"
+                            await cursor.execute(sql, (message.from_, message.title, message.org_content, message.receive_time))
+                            await conn.commit()
+                        log_and_print("信息写入成功.", "INFO:     ", "INFO")
+                message_buffer = []
+            except Exception as e:
+                log_and_print(f"数据库操作异常: {e}", "ERROR:     ", "ERROR")
+        elif not db_connected:
+            log_and_print(f"数据库未连接，暂存消息，等待数据库连接恢复...", "WARNING:     ", "WARNING")
+        await asyncio.sleep(3)
+
+app = FastAPI()
+
+@app.on_event("startup")
+async def startup_event():
+    await initialize()
+    asyncio.create_task(write_to_db())
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    await shutdown()
 
 @app.put("/webhook")
-async def handle_webhook(
-    message: Message, conn: aiomysql.Connection = Depends(get_connection)
-):
-    logger.debug("处理新消息")
+async def handle_webhook(message: Message):
+    global message_buffer, db_connected
     message.receive_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    logger.debug(f"消息接收时间: {message.receive_time}")
-    message_queue.put(message)
-
+    message_buffer.append(message)
+    log_and_print(f"接收到新消息：{message.dict()}", "INFO:     ", "INFO")
 
 # 应用启动入口
 if __name__ == "__main__":
-    asyncio.run(initialize_app())
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, lifespan="on")

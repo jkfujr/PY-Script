@@ -8,12 +8,9 @@ from datetime import datetime, timedelta
 
 app = FastAPI()
 
-
-# Define the templates directory
 templates = Jinja2Templates(directory=".")
 
 def extract_datetime_from_folder_name(folder_name):
-    # 使用正则表达式从文件夹名称中提取时间信息
     pattern = r"(\d{8}-\d{6})"
     match = re.search(pattern, folder_name)
     
@@ -68,7 +65,7 @@ def generate_table_data(path):
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
-    # 获取查询参数中的自定义路径，默认为 "F:\Video\录播\综合"
+    # 获取路径，默认为 "F:\Video\录播\综合"
     path = request.query_params.get("path", "F:\Video\录播\综合")
 
     # 生成表格数据

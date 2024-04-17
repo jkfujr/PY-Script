@@ -7,10 +7,10 @@ import asyncio
 app = FastAPI()
 
 # 录播文件夹
-liverec_dir = "\AA"
+liverec_dir = "/AA"
 
 # 需要移动到的目录
-newfile_dir = "\BB"
+newfile_dir = "/BB"
 
 
 # 异步队列，用于记录待上传文件的数量

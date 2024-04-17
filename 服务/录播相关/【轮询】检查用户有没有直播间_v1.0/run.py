@@ -42,7 +42,7 @@ def read_uid_file():
 uids = read_uid_file()
 
 # Gotify URL&TOken
-message_url = "https://100.111.200.21:18101/message?token=114514"
+message_url = "https://100.111.200.21:18101/message?token=APS6.iD-ldRDfqu"
 
 
 # 消息发送

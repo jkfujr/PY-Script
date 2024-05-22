@@ -1,0 +1,37 @@
+# (可选)全局 监听地址。
+# 默认 0.0.0.0
+HOST: 0.0.0.0
+# (可选)全局 监听端口。
+# 默认 8000
+PORT: 8000
+
+
+### 数据库, 兼容 mariadb & mysql
+DB:
+  # 是否启用
+  # 默认 false 禁用
+  enable: true
+  # 数据库地址
+  host: "10.0.0.111"
+  # 数据库端口
+  port: 3306
+  # 数据库名称
+  db: "sms"
+  # 数据库账号
+  user: "sms"
+  # 数据库密码
+  password: "gy6S*NPYNpki9TP5"
+  # 数据库编码, 默认就行
+  charset: "utf8mb4"
+
+
+### Gotify推送
+Gotify:
+  # 是否启用
+  # 默认 false 禁用
+  enable: true
+  url: "100.111.200.21:18101"
+  token: "A_lrO23T1FX538v"
+  # 消息优先级
+  # 默认 5
+  priority: 5

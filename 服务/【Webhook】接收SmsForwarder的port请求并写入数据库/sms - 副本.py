@@ -11,12 +11,11 @@ from pydantic import BaseModel
 from datetime import datetime
 from contextlib import asynccontextmanager
 
-# 获取目录
+# 获取脚本所在目录的绝对路径
 script_directory = os.path.dirname(os.path.abspath(__file__))
-
-
-# 读取配置
 config_path = os.path.join(script_directory, "config.yaml")
+
+# 读取配置文件
 with open(config_path, "r", encoding="utf-8") as file:
     config = yaml.safe_load(file)
 
@@ -25,7 +24,6 @@ PORT = config.get('PORT', 8000)
 DB_CONFIG = config['DB']
 GOTIFY_CONFIG = config['Gotify']
 
-
 ### 日志模块
 def log():
     global logger
@@ -33,6 +31,7 @@ def log():
         return logging.getLogger()
 
     # 获取目录
+    script_directory = os.path.dirname(os.path.abspath(__file__))
     log_directory = os.path.join(script_directory, "logs")
     if not os.path.exists(log_directory):
         os.makedirs(log_directory)
@@ -76,7 +75,7 @@ def log_print(message, prefix="", level="INFO"):
     # 打印
     print(prefix + message)
 
-# 信息模型
+# 消息模型
 class Message(BaseModel):
     from_: str
     title: str
@@ -96,7 +95,7 @@ async def push_gotify(title, org_content):
     max_retries = 3
     retry_delay = 3
     url = f"https://{GOTIFY_CONFIG['url']}/message?token={GOTIFY_CONFIG['token']}"
-    priority = GOTIFY_CONFIG.get('priority', 5)
+    priority = GOTIFY_CONFIG.get('priority', 6)  # 获取优先级，默认为6
     payload = {
         "message": org_content,
         "priority": priority,
@@ -108,15 +107,15 @@ async def push_gotify(title, org_content):
             try:
                 resp = await client.post(url, json=payload)
                 if resp.status_code == 200:
-                    log_print(f"[Gotify] 信息推送成功", "INFO:     ", "INFO")
+                    log_print(f"[Gotify] 消息推送成功", "INFO:     ", "INFO")
                     return
                 else:
-                    log_print(f"[Gotify] 信息推送失败，状态码：{resp.status_code}，重试次数：{attempt}/{max_retries}", "ERROR:     ", "ERROR")
+                    log_print(f"[Gotify] 消息推送失败，状态码：{resp.status_code}，重试次数：{attempt}/{max_retries}", "ERROR:     ", "ERROR")
             except Exception as e:
-                log_print(f"[Gotify] 信息推送异常：{e}，重试次数：{attempt}/{max_retries}", "ERROR:     ", "ERROR")
+                log_print(f"[Gotify] 消息推送异常：{e}，重试次数：{attempt}/{max_retries}", "ERROR:     ", "ERROR")
             await asyncio.sleep(retry_delay)
 
-        log_print(f"[Gotify] 信息推送失败：达到最大重试次数 {max_retries} 次", "ERROR:     ", "ERROR")
+        log_print(f"[Gotify] 消息推送失败：达到最大重试次数 {max_retries} 次", "ERROR:     ", "ERROR")
 
 ### 数据库连接
 async def db_connect():
@@ -209,7 +208,7 @@ async def handle_webhook(message: Message):
     global message_buffer
     message.receive_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     message_buffer.append(message)
-    log_print(f"接收到新信息：{message.dict()}", "INFO:     ", "INFO")
+    log_print(f"接收到新消息：{message.dict()}", "INFO:     ", "INFO")
 
     asyncio.create_task(push_gotify(message.title, message.org_content))
 

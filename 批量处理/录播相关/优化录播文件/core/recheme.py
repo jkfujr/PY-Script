@@ -136,7 +136,7 @@ def process_flv_files(subfolder_list, user_folder_path):
     return max_date_folder
 
 
-# 处理合并逻辑，并记录日志信息
+# 处理合并逻辑
 def process_merge_logic(
     id, user_folder, subfolder_info, folder_path_id, recheme_skip_substrings
 ):
@@ -204,10 +204,6 @@ def recheme_main(
             if user_folder in skip_folders:
                 continue
 
-            process_user_folder(
-                id, user_folder, enable_move, folder_path_id, recheme_skip_substrings
-            )
-
             user_folder_path = os.path.join(source_path, user_folder)
             if not os.path.isdir(user_folder_path):
                 continue
@@ -216,19 +212,13 @@ def recheme_main(
             is_social_folder = user_folder in social_folders
             if is_social_folder:
                 for sub_user_folder in os.listdir(user_folder_path):
-                    sub_user_folder_path = os.path.join(
-                        user_folder_path, sub_user_folder
-                    )
+                    sub_user_folder_path = os.path.join(user_folder_path, sub_user_folder)
                     if not os.path.isdir(sub_user_folder_path):
                         continue
-                    # 更新路径，加上社团文件夹的路径
-                    sub_user_folder_path = os.path.join(
-                        target_path, user_folder, sub_user_folder
-                    )
-                    logging.info(f"[录播姬] 开始处理源路径: {sub_user_folder_path}")
+                    logging.info(f"[录播姬] 开始处理子文件夹: {sub_user_folder_path}")
                     process_user_folder(
                         id,
-                        sub_user_folder_path,
+                        os.path.join(user_folder, sub_user_folder),
                         enable_move,
                         folder_path_id,
                         recheme_skip_substrings,

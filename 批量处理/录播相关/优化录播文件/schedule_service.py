@@ -6,8 +6,8 @@ import subprocess
 import schedule
 from datetime import datetime
 
-# 优化脚本路径
-script_path = r"D:\Code\PY-Script\批量处理\录播相关\优化录播文件\run.py"
+# 优化脚本路径，使用当前脚本所在目录
+script_path = os.path.join(os.path.dirname(__file__), 'optimize.py')
 
 # 文件夹路径配置
 folder_path_id = {
@@ -31,8 +31,11 @@ def print_statistics(folder_path_id, total_folders, moved_folders, failed_folder
         print(f"[统计] 移动成功: {moved_folders_source}, 移动失败: {failed_folders_source}")
         if failed_folders_source > 0:
             print("移动失败的文件夹:", ", ".join(failed_folder_names_source))
-        target_folders = [folder for folder in os.listdir(target_directory) if os.path.isdir(os.path.join(target_directory, folder))]
-        print(f"[统计] 目标路径文件夹: {', '.join(target_folders)}")
+        try:
+            target_folders = [folder for folder in os.listdir(target_directory) if os.path.isdir(os.path.join(target_directory, folder))]
+            print(f"[统计] 目标路径文件夹: {', '.join(target_folders)}")
+        except FileNotFoundError:
+            print(f"[统计] 目标路径 {target_directory} 不存在")
     print()
 
 # 请求API获取数据
@@ -46,6 +49,15 @@ def fetch_recording_status():
     except requests.exceptions.RequestException as e:
         print("[API] 请求API失败:", e)
         return {}
+
+# 确保目录存在
+def ensure_directory_exists(directory_path):
+    if not os.path.exists(directory_path):
+        try:
+            os.makedirs(directory_path)
+            print(f"[目录] 创建目标目录: {directory_path}")
+        except Exception as e:
+            print(f"[目录] 创建目录 {directory_path} 失败: {e}")
 
 # 移动文件夹操作
 def move_folders():
@@ -62,6 +74,9 @@ def move_folders():
     for folder_id, paths in folder_path_id.items():
         source_directory = paths["source"]
         target_directory = paths["target"]
+
+        # 确保目标目录存在
+        ensure_directory_exists(target_directory)
 
         # 更新源目录下的文件夹总数
         total_folders[folder_id] = len([item for item in os.listdir(source_directory) if os.path.isdir(os.path.join(source_directory, item))])

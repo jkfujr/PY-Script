@@ -1,0 +1,248 @@
+2024-05-22 00:08:27,885 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 00:18:27,888 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 00:28:27,894 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 00:38:27,895 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 00:48:27,907 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 00:58:27,917 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 01:08:27,906 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 01:18:27,911 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 01:28:27,912 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 01:38:27,904 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 01:48:27,905 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 01:58:27,904 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 02:08:27,902 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 02:18:27,910 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 02:28:27,911 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 02:38:27,915 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 02:48:27,920 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 02:58:27,913 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 03:08:27,923 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 03:18:27,934 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 03:28:27,930 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 03:38:27,923 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 03:48:27,929 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 03:58:27,936 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 04:08:27,923 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 04:18:27,925 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 04:28:27,937 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 04:38:27,941 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 04:48:27,939 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 04:58:27,933 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 05:08:27,931 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 05:18:27,947 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 05:28:27,955 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 05:38:27,954 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 05:48:27,961 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 05:58:27,952 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 06:08:27,956 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 06:18:27,955 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 06:28:27,955 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 06:38:27,970 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 06:48:27,961 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 06:58:27,971 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 07:08:27,980 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 07:18:27,976 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 07:28:27,989 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 07:38:27,994 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 07:48:28,004 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 07:58:28,002 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 08:08:28,001 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 08:18:28,006 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 08:28:28,004 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 08:38:28,004 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 08:48:28,002 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 08:50:20,506 [INFO] MainProcess - 接收到新消息：{'from_': '10085113', 'title': 'SIM2_中国移动_13416891810', 'org_content': '【融合客服系统】验证码：874489，本次登录验证码5分钟内有效，请勿向他人泄露。', 'receive_time': '2024-05-22 08:50:20'}
+2024-05-22 08:50:20,508 [DEBUG] MainProcess - load_ssl_context verify=False cert=None trust_env=True http2=False
+2024-05-22 08:50:20,508 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 08:50:21,697 [INFO] MainProcess - [DB] 信息写入成功.
+2024-05-22 08:50:23,564 [DEBUG] MainProcess - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248EF23260>
+2024-05-22 08:50:23,565 [DEBUG] MainProcess - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002248ECE4250> server_hostname='100.111.200.21' timeout=5.0
+2024-05-22 08:50:24,649 [DEBUG] MainProcess - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248F5C2F60>
+2024-05-22 08:50:24,649 [DEBUG] MainProcess - send_request_headers.started request=<Request [b'POST']>
+2024-05-22 08:50:24,649 [DEBUG] MainProcess - send_request_headers.complete
+2024-05-22 08:50:24,649 [DEBUG] MainProcess - send_request_body.started request=<Request [b'POST']>
+2024-05-22 08:50:24,650 [DEBUG] MainProcess - send_request_body.complete
+2024-05-22 08:50:24,650 [DEBUG] MainProcess - receive_response_headers.started request=<Request [b'POST']>
+2024-05-22 08:50:25,166 [DEBUG] MainProcess - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json'), (b'Date', b'Wed, 22 May 2024 00:50:25 GMT'), (b'Content-Length', b'234')])
+2024-05-22 08:50:25,167 [INFO] MainProcess - HTTP Request: POST https://100.111.200.21:18101/message?token=A_lrO23T1FX538v "HTTP/1.1 200 OK"
+2024-05-22 08:50:25,167 [DEBUG] MainProcess - receive_response_body.started request=<Request [b'POST']>
+2024-05-22 08:50:25,167 [DEBUG] MainProcess - receive_response_body.complete
+2024-05-22 08:50:25,167 [DEBUG] MainProcess - response_closed.started
+2024-05-22 08:50:25,167 [DEBUG] MainProcess - response_closed.complete
+2024-05-22 08:50:25,167 [INFO] MainProcess - [Gotify] 消息推送成功
+2024-05-22 08:50:25,167 [DEBUG] MainProcess - close.started
+2024-05-22 08:50:25,168 [DEBUG] MainProcess - close.complete
+2024-05-22 08:58:27,998 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 09:07:42,196 [INFO] MainProcess - 接收到新消息：{'from_': '10086', 'title': 'SIM2_中国移动_13416891810', 'org_content': '【话费账单】尊敬的(134****1810)客户，您04月01日-04月30日共消费119.20元，其中活动返费-5.00元，实际应付114.20元。\n 主要消费项目包括：\n -套餐及固定费119.00元；\n -套餐外通话费0.20元。\n 查询费用详情，请点击: https://dx.10086.cn/billdx ，回复QXDZD退订本短信。为更好地提升我们的服务质量，诚邀您参与调研: https://gd.10086.cn/fw/dy/sr/MJBrmy ，感谢您的支持！更多信息可详询在线客服: http://dx.10086.cn/AiIbM3e 。心级服务、让爱连接，我们期待您的“10分”满意。【中国移动】', 'receive_time': '2024-05-22 09:07:42'}
+2024-05-22 09:07:42,198 [DEBUG] MainProcess - load_ssl_context verify=False cert=None trust_env=True http2=False
+2024-05-22 09:07:42,199 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 09:07:42,928 [INFO] MainProcess - [DB] 信息写入成功.
+2024-05-22 09:07:47,198 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 09:07:47,199 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：1/3
+2024-05-22 09:07:50,201 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 09:07:55,209 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 09:07:55,210 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：2/3
+2024-05-22 09:07:58,202 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 09:08:03,202 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 09:08:03,202 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：3/3
+2024-05-22 09:08:06,206 [ERROR] MainProcess - [Gotify] 消息推送失败：达到最大重试次数 3 次
+2024-05-22 09:08:28,001 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 09:18:28,006 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 09:28:28,007 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 09:38:27,998 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 09:48:28,003 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 09:58:28,010 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 10:08:28,003 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 10:18:28,014 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 10:28:28,015 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 10:38:28,022 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 10:48:28,041 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 10:58:28,032 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 11:08:28,029 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 11:18:28,046 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 11:28:28,044 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 11:38:28,023 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 11:48:28,025 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 11:58:28,025 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 12:08:28,019 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 12:18:28,013 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 12:28:28,016 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 12:31:37,158 [INFO] MainProcess - 接收到新消息：{'from_': '10085113', 'title': 'SIM2_中国移动_13416891810', 'org_content': '【融合客服系统】验证码：045665，本次登录验证码5分钟内有效，请勿向他人泄露。', 'receive_time': '2024-05-22 12:31:37'}
+2024-05-22 12:31:37,160 [DEBUG] MainProcess - load_ssl_context verify=False cert=None trust_env=True http2=False
+2024-05-22 12:31:37,161 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 12:31:37,442 [DEBUG] MainProcess - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248F5C0C50>
+2024-05-22 12:31:37,442 [DEBUG] MainProcess - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002248EC6E950> server_hostname='100.111.200.21' timeout=5.0
+2024-05-22 12:31:37,728 [DEBUG] MainProcess - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248EE9FE60>
+2024-05-22 12:31:37,728 [DEBUG] MainProcess - send_request_headers.started request=<Request [b'POST']>
+2024-05-22 12:31:37,728 [DEBUG] MainProcess - send_request_headers.complete
+2024-05-22 12:31:37,728 [DEBUG] MainProcess - send_request_body.started request=<Request [b'POST']>
+2024-05-22 12:31:37,728 [DEBUG] MainProcess - send_request_body.complete
+2024-05-22 12:31:37,728 [DEBUG] MainProcess - receive_response_headers.started request=<Request [b'POST']>
+2024-05-22 12:31:37,802 [INFO] MainProcess - [DB] 信息写入成功.
+2024-05-22 12:31:38,609 [DEBUG] MainProcess - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json'), (b'Date', b'Wed, 22 May 2024 04:31:38 GMT'), (b'Content-Length', b'236')])
+2024-05-22 12:31:38,609 [INFO] MainProcess - HTTP Request: POST https://100.111.200.21:18101/message?token=A_lrO23T1FX538v "HTTP/1.1 200 OK"
+2024-05-22 12:31:38,609 [DEBUG] MainProcess - receive_response_body.started request=<Request [b'POST']>
+2024-05-22 12:31:38,609 [DEBUG] MainProcess - receive_response_body.complete
+2024-05-22 12:31:38,609 [DEBUG] MainProcess - response_closed.started
+2024-05-22 12:31:38,609 [DEBUG] MainProcess - response_closed.complete
+2024-05-22 12:31:38,610 [INFO] MainProcess - [Gotify] 消息推送成功
+2024-05-22 12:31:38,610 [DEBUG] MainProcess - close.started
+2024-05-22 12:31:38,610 [DEBUG] MainProcess - close.complete
+2024-05-22 12:38:28,017 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 12:48:28,024 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 12:58:28,014 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 13:08:28,022 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 13:18:28,029 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 13:28:28,018 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 13:38:28,033 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 13:48:28,051 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 13:58:28,057 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 14:08:28,060 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 14:18:28,070 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 14:28:28,069 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 14:38:28,053 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 14:48:28,059 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 14:58:28,067 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 15:02:28,839 [INFO] MainProcess - 接收到新消息：{'from_': '10085113', 'title': 'SIM2_中国移动_13416891810', 'org_content': '【融合客服系统】验证码：413744，本次登录验证码5分钟内有效，请勿向他人泄露。', 'receive_time': '2024-05-22 15:02:28'}
+2024-05-22 15:02:28,840 [DEBUG] MainProcess - load_ssl_context verify=False cert=None trust_env=True http2=False
+2024-05-22 15:02:28,841 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 15:02:29,621 [INFO] MainProcess - [DB] 信息写入成功.
+2024-05-22 15:02:33,847 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 15:02:33,847 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：1/3
+2024-05-22 15:02:36,843 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 15:02:41,839 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 15:02:41,839 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：2/3
+2024-05-22 15:02:44,842 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 15:02:49,843 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 15:02:49,843 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：3/3
+2024-05-22 15:02:52,846 [ERROR] MainProcess - [Gotify] 消息推送失败：达到最大重试次数 3 次
+2024-05-22 15:08:28,078 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 15:09:27,127 [INFO] MainProcess - 接收到新消息：{'from_': '10085113', 'title': 'SIM2_中国移动_13416891810', 'org_content': '【融合客服系统】验证码：501210，本次登录验证码5分钟内有效，请勿向他人泄露。', 'receive_time': '2024-05-22 15:09:27'}
+2024-05-22 15:09:27,128 [DEBUG] MainProcess - load_ssl_context verify=False cert=None trust_env=True http2=False
+2024-05-22 15:09:27,129 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 15:09:29,765 [INFO] MainProcess - [DB] 信息写入成功.
+2024-05-22 15:09:32,145 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 15:09:32,145 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：1/3
+2024-05-22 15:09:35,149 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 15:09:38,711 [DEBUG] MainProcess - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248F5C21E0>
+2024-05-22 15:09:38,711 [DEBUG] MainProcess - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002248ECE6050> server_hostname='100.111.200.21' timeout=5.0
+2024-05-22 15:09:43,711 [DEBUG] MainProcess - start_tls.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 15:09:43,711 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：2/3
+2024-05-22 15:09:46,704 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 15:09:51,703 [DEBUG] MainProcess - connect_tcp.failed exception=ConnectTimeout(TimeoutError())
+2024-05-22 15:09:51,703 [ERROR] MainProcess - [Gotify] 消息推送异常：，重试次数：3/3
+2024-05-22 15:09:54,705 [ERROR] MainProcess - [Gotify] 消息推送失败：达到最大重试次数 3 次
+2024-05-22 15:18:28,112 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 15:28:28,091 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 15:38:28,082 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 15:48:28,084 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 15:58:28,077 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 16:08:28,090 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 16:14:31,867 [INFO] MainProcess - 接收到新消息：{'from_': '106841010691703', 'title': 'SIM2_中国移动_13416891810', 'org_content': '【丰巢】凭取件码74889891至竣景楼侧面（靠合家欢旁）丰巢柜取件。快递员13066126505，18小时内免费', 'receive_time': '2024-05-22 16:14:31'}
+2024-05-22 16:14:31,869 [DEBUG] MainProcess - load_ssl_context verify=False cert=None trust_env=True http2=False
+2024-05-22 16:14:31,869 [DEBUG] MainProcess - connect_tcp.started host='100.111.200.21' port=18101 local_address=None timeout=5.0 socket_options=None
+2024-05-22 16:14:33,205 [INFO] MainProcess - [DB] 信息写入成功.
+2024-05-22 16:14:35,722 [DEBUG] MainProcess - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248EDBA4E0>
+2024-05-22 16:14:35,723 [DEBUG] MainProcess - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002248ED91F50> server_hostname='100.111.200.21' timeout=5.0
+2024-05-22 16:14:38,952 [DEBUG] MainProcess - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x000002248EDBB4D0>
+2024-05-22 16:14:38,952 [DEBUG] MainProcess - send_request_headers.started request=<Request [b'POST']>
+2024-05-22 16:14:38,952 [DEBUG] MainProcess - send_request_headers.complete
+2024-05-22 16:14:38,952 [DEBUG] MainProcess - send_request_body.started request=<Request [b'POST']>
+2024-05-22 16:14:38,953 [DEBUG] MainProcess - send_request_body.complete
+2024-05-22 16:14:38,953 [DEBUG] MainProcess - receive_response_headers.started request=<Request [b'POST']>
+2024-05-22 16:14:41,683 [DEBUG] MainProcess - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json'), (b'Date', b'Wed, 22 May 2024 08:14:41 GMT'), (b'Content-Length', b'256')])
+2024-05-22 16:14:41,683 [INFO] MainProcess - HTTP Request: POST https://100.111.200.21:18101/message?token=A_lrO23T1FX538v "HTTP/1.1 200 OK"
+2024-05-22 16:14:41,683 [DEBUG] MainProcess - receive_response_body.started request=<Request [b'POST']>
+2024-05-22 16:14:41,683 [DEBUG] MainProcess - receive_response_body.complete
+2024-05-22 16:14:41,683 [DEBUG] MainProcess - response_closed.started
+2024-05-22 16:14:41,683 [DEBUG] MainProcess - response_closed.complete
+2024-05-22 16:14:41,684 [INFO] MainProcess - [Gotify] 消息推送成功
+2024-05-22 16:14:41,684 [DEBUG] MainProcess - close.started
+2024-05-22 16:14:41,684 [DEBUG] MainProcess - close.complete
+2024-05-22 16:18:28,089 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 16:28:28,079 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 16:38:28,087 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 16:48:28,077 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 16:58:28,083 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 17:08:28,079 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 17:18:28,092 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 17:28:28,120 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 17:38:28,122 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 17:48:28,133 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 17:58:28,144 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 18:08:28,124 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 18:18:28,129 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 18:28:28,134 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 18:38:28,130 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 18:48:28,131 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 18:58:28,128 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 19:08:28,136 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 19:18:28,133 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 19:28:28,132 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 19:38:28,141 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 19:48:28,146 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 19:58:28,139 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 20:08:28,150 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 20:18:28,144 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 20:28:28,153 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 20:38:28,141 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 20:48:28,135 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 20:58:28,148 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 21:08:28,136 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 21:18:28,143 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 21:28:28,155 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 21:38:28,166 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 21:48:28,163 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 21:58:28,163 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 22:08:28,154 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 22:18:28,155 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 22:28:28,163 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 22:38:28,150 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 22:48:28,164 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 22:58:28,164 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 23:08:28,166 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 23:18:28,171 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 23:28:28,168 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 23:38:28,181 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 23:48:28,167 [DEBUG] MainProcess - [检查] 数据库连接正常.
+2024-05-22 23:58:28,166 [DEBUG] MainProcess - [检查] 数据库连接正常.

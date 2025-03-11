@@ -24,5 +24,9 @@ DB:
 
 ### Gotify推送
 Gotify:
-  url: "114.51.41.91:19810"
-  token: "sms"
+  WLL:
+    url: "114.51.41.91:19810"
+    token: "sms"
+  Ali:
+    url: "114.51.41.91:19810"
+    token: "sms"

@@ -28,15 +28,26 @@
 <body>
     <div class="container">
         <h1>【录播】开播时间差检查</h1>
-        <form id="customPathForm" class="row g-3">
+        <form id="customPathForm" class="row g-3" method="get" action="/">
             <div class="col-auto">
                 <label for="path" class="form-label">路径：</label>
             </div>
             <div class="col">
-                <input type="text" id="path" name="path" value="F:\Video\录播\综合" class="form-control" required>
+                <input type="text" id="path" name="path" value="{{ path }}" class="form-control" required>
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">刷新</button>
+            </div>
+        </form>
+        <form id="moveForm" class="row g-3">
+            <div class="col-auto">
+                <label for="timeDiff" class="form-label">时间差 (分:秒)：</label>
+            </div>
+            <div class="col">
+                <input type="text" id="timeDiff" name="timeDiff" class="form-control" required>
+            </div>
+            <div class="col-auto">
+                <button type="button" id="moveButton" class="btn btn-warning">移动全部</button>
             </div>
         </form>
         <table id="dataTable" class="table table-bordered table-striped table-hover">
@@ -45,6 +56,7 @@
                     <th>用户ID</th>
                     <th>子文件夹名称</th>
                     <th>时间差</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +65,9 @@
                     <td>{{ data[0] }}</td>
                     <td>{{ data[1] }}</td>
                     <td>{{ data[2] }}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger move-btn" data-user="{{ data[0] }}" data-folder="{{ data[1] }}">移动</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -63,7 +78,35 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
+            // 初始化DataTable
             $('#dataTable').DataTable();
+
+            // 为“移动全部”按钮添加事件
+            $('#moveButton').on('click', function () {
+                const path = $('#path').val();
+                const timeDiff = $('#timeDiff').val();
+                if (timeDiff) {
+                    $.post('/move_folders', { path: path, time_diff: timeDiff }, function (data) {
+                        alert(data.message);
+                        location.reload();
+                    });
+                } else {
+                    alert('请填写时间差');
+                }
+            });
+
+            // 为每行的独立移动按钮添加点击事件
+            $('.move-btn').on('click', function () {
+                const userId = $(this).data('user');
+                const folderName = $(this).data('folder');
+                const path = $('#path').val();
+
+                // 使用Ajax单独移动当前行对应的子文件夹
+                $.post('/move_folders', { path: path, time_diff: '00:00', user_id: userId, folder_name: folderName }, function (data) {
+                    alert(`文件夹 ${folderName} 已成功移动: ` + data.message);
+                    location.reload();
+                });
+            });
         });
     </script>
 </body>
